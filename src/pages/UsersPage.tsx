@@ -128,12 +128,12 @@ export default function UsersPage() {
               </div>
               <div className="space-y-2">
                 <Label>Team (optional)</Label>
-                <Select value={newUserTeam} onValueChange={setNewUserTeam}>
+              <Select value={newUserTeam || "none"} onValueChange={(v) => setNewUserTeam(v === "none" ? "" : v)}>
                   <SelectTrigger>
                     <SelectValue placeholder="No team assigned" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">No team</SelectItem>
+                    <SelectItem value="none">No team</SelectItem>
                     {teams.map(team => (
                       <SelectItem key={team.id} value={team.id}>{team.name}</SelectItem>
                     ))}
@@ -208,14 +208,14 @@ export default function UsersPage() {
                     </TableCell>
                     <TableCell>
                       <Select 
-                        value={user.teamId || ''} 
-                        onValueChange={(v) => assignUserTeam(user.id, v || undefined)}
+                        value={user.teamId || "none"} 
+                        onValueChange={(v) => assignUserTeam(user.id, v === "none" ? undefined : v)}
                       >
                         <SelectTrigger className="w-40 h-8">
                           <SelectValue placeholder="No team" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">No team</SelectItem>
+                          <SelectItem value="none">No team</SelectItem>
                           {teams.map(team => (
                             <SelectItem key={team.id} value={team.id}>{team.name}</SelectItem>
                           ))}
